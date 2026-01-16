@@ -6,14 +6,14 @@ namespace Model.Data.Repository;
 
 public class VisitorRepositoryDapper(IDbConnection dbConnection) : IVisitorRepository
 {
-    public async Task<Visitor?> CreateAsync(Visitor entity)
+    public async Task<Visitor> CreateAsync(Visitor entity)
     {
-        return await dbConnection.QueryFirstOrDefaultAsync<Visitor>(QueryStore.InsertVisitorQuery, entity);
+        return await dbConnection.QueryFirstAsync<Visitor>(QueryStore.InsertVisitorQuery, entity);
     }
 
-    public async Task<Visitor?> UpdateAsync(Visitor entity)
+    public async Task<Visitor> UpdateAsync(Visitor entity)
     {
-        return await dbConnection.QueryFirstOrDefaultAsync<Visitor>(QueryStore.UpdateVisitorById, entity);
+        return await dbConnection.QueryFirstAsync<Visitor>(QueryStore.UpdateVisitorById, entity);
     }
 
     public async Task<bool> DeleteAsync(Visitor entity)
