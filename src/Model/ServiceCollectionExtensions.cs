@@ -30,7 +30,22 @@ public static class ServiceCollectionExtensions
     
     private static IServiceCollection AddData(this IServiceCollection services)
     {
+        services.AddEfData();
+        //services.AddDapperData();
+        
+        return services;
+    }
+
+    private static IServiceCollection AddEfData(this IServiceCollection services)
+    {
         services.AddScoped<IUnitOfWork, UnitOfWorkEf>();
+        
+        return services;
+    }
+    
+    private static IServiceCollection AddDapperData(this IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, UnitOfWorkDapper>();
         
         return services;
     }

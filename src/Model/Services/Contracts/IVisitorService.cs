@@ -11,7 +11,7 @@ public interface IVisitorService
     
     public Task<Result<Visitor>> UpdateAsync(Visitor visitor);
     
-    public Task DeleteAsync(int id);
+    public Task<bool> DeleteAsync(int id);
 
     public Task<IReadOnlyCollection<Visitor>> GetAll();
 }

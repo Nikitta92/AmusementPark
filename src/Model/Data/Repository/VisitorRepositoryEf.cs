@@ -19,6 +19,6 @@ public sealed class VisitorRepositoryEf(DatabaseContext dbContext)
 
     public async Task<IReadOnlyCollection<Visitor>> GetAllAsync()
     {
-        return await Query.AsNoTracking().ToListAsync();
+        return await Query.OrderBy(x => x.Id).AsNoTracking().ToListAsync();
     }
 }

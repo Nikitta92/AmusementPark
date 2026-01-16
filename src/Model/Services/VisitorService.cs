@@ -1,6 +1,5 @@
 using FluentValidation;
 using Model.Data;
-using Model.Data.Repository;
 using Model.Domain;
 using Model.Results;
 
@@ -49,9 +48,10 @@ public class VisitorService(
         return Result<Visitor>.Success(updated);
     }
 
-    public Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        return unitOfWork.ExecuteAndCommitAsync(x => x.VisitorRepository.DeleteAsync(id));
+        var isDeleted = await unitOfWork.ExecuteAndCommitAsync(x => x.VisitorRepository.DeleteAsync(id));
+        return isDeleted;
     }
 
     public Task<IReadOnlyCollection<Visitor>> GetAll()
