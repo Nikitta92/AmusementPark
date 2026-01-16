@@ -54,9 +54,11 @@ public class VisitorService(
         return isDeleted;
     }
 
-    public Task<IReadOnlyCollection<Visitor>> GetAll()
+    public async Task<IReadOnlyCollection<Visitor>> GetAll(int? sinceId, int limit)
     {
-        return unitOfWork.ExecuteWithoutCommitAsync(repositories =>
-            repositories.VisitorRepository.GetAllAsync());
+        return await unitOfWork.ExecuteWithoutCommitAsync(repositories => sinceId is not null
+            ? repositories.VisitorRepository.GetSinceIdAsync(sinceId.Value, limit)
+            : repositories.VisitorRepository.GetAllAsync(limit));
+
     }
 }

@@ -17,8 +17,22 @@ public sealed class VisitorRepositoryEf(DatabaseContext dbContext)
         return deletedRows > 0;
     }
 
-    public async Task<IReadOnlyCollection<Visitor>> GetAllAsync()
+    public async Task<IReadOnlyCollection<Visitor>> GetAllAsync(int limit)
     {
-        return await Query.OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+        return await Query
+            .OrderBy(x => x.Id)
+            .Take(limit)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<IReadOnlyCollection<Visitor>> GetSinceIdAsync(int sinceId, int limit)
+    {
+        return await Query
+            .OrderBy(x => x.Id)
+            .Where(x => x.Id > sinceId)
+            .Take(limit)
+            .AsNoTracking()
+            .ToListAsync();
     }
 }

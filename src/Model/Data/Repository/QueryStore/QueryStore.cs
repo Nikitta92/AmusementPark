@@ -28,8 +28,16 @@ public static class QueryStore
         WHERE "Id" = @Id;
         """;
 
-    public const string SelectAllVisitors =
+    public const string SelectAllVisitorsWithLimit =
         """
-        SELECT * FROM "AmusementPark"."Visitor" ORDER BY "Id";
+        SELECT * FROM "AmusementPark"."Visitor" ORDER BY "Id" LIMIT @Limit;
+        """;
+    
+    public const string SelectAllVisitorsSinceIdWithLimit =
+        """
+        SELECT * 
+        FROM "AmusementPark"."Visitor"
+        WHERE "Id" > @SinceId
+        ORDER BY "Id" LIMIT @Limit;
         """;
 }

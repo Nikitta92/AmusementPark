@@ -13,8 +13,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddServices();
         services.AddValidators();
-        services.AddData();
-        
         
         return services;
     }
@@ -27,23 +25,15 @@ public static class ServiceCollectionExtensions
         
         return services;
     }
-    
-    private static IServiceCollection AddData(this IServiceCollection services)
-    {
-        services.AddEfData();
-        //services.AddDapperData();
-        
-        return services;
-    }
 
-    private static IServiceCollection AddEfData(this IServiceCollection services)
+    public static IServiceCollection AddEfData(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWorkEf>();
         
         return services;
     }
     
-    private static IServiceCollection AddDapperData(this IServiceCollection services)
+    public static IServiceCollection AddDapperData(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWorkDapper>();
         

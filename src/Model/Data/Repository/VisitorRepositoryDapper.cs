@@ -31,9 +31,20 @@ public class VisitorRepositoryDapper(IDbConnection dbConnection) : IVisitorRepos
         return await dbConnection.ExecuteAsync(QueryStore.DeleteVisitorById, new { Id = id }) > 0;
     }
 
-    public async Task<IReadOnlyCollection<Visitor>> GetAllAsync()
+    public async Task<IReadOnlyCollection<Visitor>> GetAllAsync(int limit)
     {
-        var visitors = await dbConnection.QueryAsync<Visitor>(QueryStore.SelectAllVisitors);
+        var visitors = await dbConnection
+            .QueryAsync<Visitor>(QueryStore.SelectAllVisitorsWithLimit, new { Limit = limit });
+        
+        return visitors.ToList();
+    }
+
+    public async Task<IReadOnlyCollection<Visitor>> GetSinceIdAsync(int sinceId, int limit)
+    {
+        var visitors = await dbConnection
+            .QueryAsync<Visitor>(QueryStore.SelectAllVisitorsSinceIdWithLimit,
+                new { Limit = limit, SinceId = sinceId });
+        
         return visitors.ToList();
     }
 }

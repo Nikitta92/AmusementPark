@@ -10,9 +10,7 @@ builder.Services.AddSwaggerGen(x =>
 });
 builder.Services.AddModel();
 
-
-builder.Services.AddEf(builder.Configuration);
-//builder.Services.AddDapper(builder.Configuration);
+builder.Services.AddOrm(builder.Configuration);
 
 
 var app = builder.Build();
