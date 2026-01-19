@@ -48,7 +48,7 @@ public static class VisitorEndpoints
                 : Results.NotFound();
         }).WithName("DeleteVisitor");
         
-        group.MapGet("/", async (IVisitorService visitorService, int? sinceId, int limit) => // TODO: Add paging
+        group.MapGet("/", async (IVisitorService visitorService, int? sinceId, int limit) =>
         {
             var result = await visitorService.GetAll(sinceId, limit);
 
